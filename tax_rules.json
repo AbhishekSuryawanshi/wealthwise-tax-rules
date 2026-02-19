@@ -1,227 +1,89 @@
 {
-  "schemaVersion": "1.0",
-  "country": "India",
-  "currency": "INR",
-  "lastUpdated": "2025-03-01",
-  "activeFinancialYear": "FY2025-26",
-
-  "incomeTypes": [
-    "salaried",
-    "business",
-    "freelancer",
-    "rental",
-    "capitalGains",
-    "interest",
-    "other"
+  "version": 2,
+  "financialYear": "FY 2025-2026",
+  "lastUpdated": "2025-07-01",
+  "oldRegime": {
+    "standardDeduction": 50000,
+    "slabs": [
+      { "upTo": 250000, "rate": 0 },
+      { "upTo": 500000, "rate": 5 },
+      { "upTo": 1000000, "rate": 20 },
+      { "upTo": -1, "rate": 30 }
+    ],
+    "rebate87A": {
+      "incomeLimit": 500000,
+      "maxRebate": 12500
+    },
+    "cessRate": 4,
+    "section80CGroupLimit": 150000,
+    "section80CMembers": ["80C", "80CCC", "80CCD(1)", "EPF", "VPF"]
+  },
+  "newRegime": {
+    "standardDeduction": 75000,
+    "slabs": [
+      { "upTo": 400000, "rate": 0 },
+      { "upTo": 800000, "rate": 5 },
+      { "upTo": 1200000, "rate": 10 },
+      { "upTo": 1600000, "rate": 15 },
+      { "upTo": 2000000, "rate": 20 },
+      { "upTo": 2400000, "rate": 25 },
+      { "upTo": -1, "rate": 30 }
+    ],
+    "rebate87A": {
+      "incomeLimit": 1200000,
+      "maxRebate": 60000
+    },
+    "cessRate": 4,
+    "allowedDeductions": ["80CCD(2)"]
+  },
+  "deductionSections": [
+    { "code": "80C", "name": "EPF, PPF, ELSS, LIC, NSC, Tuition, 5yr FD, Sukanya", "limit": 150000 },
+    { "code": "80CCC", "name": "Pension Fund Contribution (LIC/Insurer)", "limit": 150000 },
+    { "code": "80CCD(1)", "name": "Employee NPS Contribution (within 80C)", "limit": 150000 },
+    { "code": "80CCD(1B)", "name": "NPS Additional Contribution (extra ₹50K)", "limit": 50000 },
+    { "code": "80CCD(2)", "name": "Employer NPS Contribution (up to 14% salary)", "limit": -1 },
+    { "code": "80D", "name": "Health Insurance Premium (Self & Family)", "limit": 25000 },
+    { "code": "80D (Parents)", "name": "Health Insurance (Parents / Senior)", "limit": 50000 },
+    { "code": "80DD", "name": "Disabled Dependent (40-80%: ₹75K, 80%+: ₹1.25L)", "limit": 125000 },
+    { "code": "80DDB", "name": "Specified Disease Treatment", "limit": 100000 },
+    { "code": "80E", "name": "Education Loan Interest (full amount)", "limit": -1 },
+    { "code": "80EE", "name": "Home Loan Interest (1st home, ≤₹35L value)", "limit": 50000 },
+    { "code": "80EEA", "name": "Home Loan Interest (Affordable Housing ≤₹45L)", "limit": 150000 },
+    { "code": "80EEB", "name": "Electric Vehicle Loan Interest", "limit": 150000 },
+    { "code": "24(b)", "name": "Home Loan Interest Deduction", "limit": 200000 },
+    { "code": "80G", "name": "Donations to Charitable Institutions", "limit": -1 },
+    { "code": "80GG", "name": "Rent Paid (when no HRA received)", "limit": 60000 },
+    { "code": "80GGA", "name": "Donations for Scientific Research", "limit": -1 },
+    { "code": "80GGC", "name": "Donations to Political Parties", "limit": -1 },
+    { "code": "80TTA", "name": "Savings Account Interest (non-senior)", "limit": 10000 },
+    { "code": "80TTB", "name": "Interest Income (Senior Citizens only)", "limit": 50000 },
+    { "code": "HRA", "name": "House Rent Allowance Exemption", "limit": -1 },
+    { "code": "LTA", "name": "Leave Travel Allowance", "limit": -1 },
+    { "code": "Prof. Tax", "name": "Professional Tax (State)", "limit": 2500 },
+    { "code": "Std. Ded.", "name": "Standard Deduction (Salaried)", "limit": 50000 },
+    { "code": "Gratuity", "name": "Gratuity Exemption u/s 10(10)", "limit": 2000000 },
+    { "code": "Leave Enc.", "name": "Leave Encashment on Retirement u/s 10(10AA)", "limit": 2500000 },
+    { "code": "EPF", "name": "Employee Provident Fund (under 80C limit)", "limit": 150000 },
+    { "code": "VPF", "name": "Voluntary Provident Fund (under 80C limit)", "limit": 150000 },
+    { "code": "TDS", "name": "Tax Deducted at Source (credit against tax)", "limit": -1 },
+    { "code": "80U", "name": "Person with Disability (Self)", "limit": 125000 },
+    { "code": "80RRB", "name": "Royalty on Patents", "limit": 300000 },
+    { "code": "80QQB", "name": "Royalty Income of Authors", "limit": 300000 }
   ],
-
-  "globalRules": {
-    "cessPercent": 4,
-    "professionalTaxMax": 2500,
-    "rebateMarginalRelief": true,
-    "surchargeMarginalRelief": true
+  "nonDeductionSections": ["TDS", "Gratuity", "Leave Enc."],
+  "presumptiveTax": {
+    "section44ADRate": 6,
+    "section44ADARate": 50,
+    "section44ADLimit": 20000000,
+    "section44ADALimit": 5000000
   },
-
   "capitalGains": {
-    "equity": {
-      "stcgRate": 15,
-      "ltcgRate": 10,
-      "ltcgExemption": 100000
-    },
-    "debt": {
-      "stcgSlabApplicable": true,
-      "ltcgRate": 20,
-      "indexationAllowed": true
-    },
-    "property": {
-      "ltcgRate": 20,
-      "indexationAllowed": true
-    }
+    "stcgRate": 15,
+    "ltcgRate": 10,
+    "ltcgExemption": 100000
   },
-
-  "hraRules": {
-    "metroPercent": 50,
-    "nonMetroPercent": 40,
-    "rentExcessPercent": 10
-  },
-
-  "pfRules": {
-    "employeeContributionPercent": 12,
-    "employerContributionPercent": 12,
-    "includedIn80C": true
-  },
-
-  "npsRules": {
-    "employee80CCD1Limit": 150000,
-    "additional80CCD1BLimit": 50000,
-    "employerPercentLimit": 10
-  },
-
-  "presumptiveTaxation": {
-    "44AD": {
-      "eligible": true,
-      "incomeLimit": 20000000,
-      "digitalProfitPercent": 6,
-      "cashProfitPercent": 8
-    },
-    "44ADA": {
-      "eligible": true,
-      "incomeLimit": 5000000,
-      "profitPercent": 50
-    }
-  },
-
-  "tdsRules": {
-    "salary": true,
-    "interest": true,
-    "contractor": true,
-    "freelancer": true,
-    "rent": true
-  },
-
-  "financialYears": {
-
-    "FY2024-25": {
-
-      "assessmentYear": "AY2025-26",
-      "isOfficial": true,
-      "isProvisional": false,
-
-      "regimes": {
-
-        "new": {
-
-          "standardDeduction": 50000,
-
-          "rebate87A": {
-            "maxIncome": 700000,
-            "maxRebate": 25000
-          },
-
-          "surcharge": [
-            { "min": 5000000, "max": 10000000, "rate": 10 },
-            { "min": 10000000, "max": 20000000, "rate": 15 },
-            { "min": 20000000, "max": 50000000, "rate": 25 },
-            { "min": 50000000, "max": null, "rate": 25 }
-          ],
-
-          "slabs": [
-            { "min": 0, "max": 300000, "rate": 0 },
-            { "min": 300000, "max": 600000, "rate": 5 },
-            { "min": 600000, "max": 900000, "rate": 10 },
-            { "min": 900000, "max": 1200000, "rate": 15 },
-            { "min": 1200000, "max": 1500000, "rate": 20 },
-            { "min": 1500000, "max": null, "rate": 30 }
-          ]
-        },
-
-        "old": {
-
-          "standardDeduction": 50000,
-
-          "rebate87A": {
-            "maxIncome": 500000,
-            "maxRebate": 12500
-          },
-
-          "surcharge": [
-            { "min": 5000000, "max": 10000000, "rate": 10 },
-            { "min": 10000000, "max": 20000000, "rate": 15 },
-            { "min": 20000000, "max": 50000000, "rate": 25 },
-            { "min": 50000000, "max": null, "rate": 37 }
-          ],
-
-          "slabs": [
-            { "min": 0, "max": 250000, "rate": 0 },
-            { "min": 250000, "max": 500000, "rate": 5 },
-            { "min": 500000, "max": 1000000, "rate": 20 },
-            { "min": 1000000, "max": null, "rate": 30 }
-          ],
-
-          "deductions": {
-
-            "80C": 150000,
-
-            "80CCD1B": 50000,
-
-            "80D": {
-              "selfBelow60": 25000,
-              "selfAbove60": 50000,
-              "parentsBelow60": 25000,
-              "parentsAbove60": 50000
-            },
-
-            "section24HomeLoanInterest": 200000,
-
-            "educationLoan80E": "unlimited",
-
-            "electricVehicle80EEB": 150000,
-
-            "firstHome80EE": 50000,
-
-            "firstHome80EEA": 150000
-          }
-        }
-      }
-    },
-
-    "FY2025-26": {
-
-      "assessmentYear": "AY2026-27",
-      "isOfficial": false,
-      "isProvisional": true,
-
-      "regimes": {
-
-        "new": {
-
-          "standardDeduction": 50000,
-
-          "rebate87A": {
-            "maxIncome": 700000,
-            "maxRebate": 25000
-          },
-
-          "surcharge": [
-            { "min": 5000000, "max": 10000000, "rate": 10 },
-            { "min": 10000000, "max": 20000000, "rate": 15 },
-            { "min": 20000000, "max": null, "rate": 25 }
-          ],
-
-          "slabs": [
-            { "min": 0, "max": 300000, "rate": 0 },
-            { "min": 300000, "max": 600000, "rate": 5 },
-            { "min": 600000, "max": 900000, "rate": 10 },
-            { "min": 900000, "max": 1200000, "rate": 15 },
-            { "min": 1200000, "max": 1500000, "rate": 20 },
-            { "min": 1500000, "max": null, "rate": 30 }
-          ]
-        },
-
-        "old": {
-
-          "standardDeduction": 50000,
-
-          "rebate87A": {
-            "maxIncome": 500000,
-            "maxRebate": 12500
-          },
-
-          "slabs": [
-            { "min": 0, "max": 250000, "rate": 0 },
-            { "min": 250000, "max": 500000, "rate": 5 },
-            { "min": 500000, "max": 1000000, "rate": 20 },
-            { "min": 1000000, "max": null, "rate": 30 }
-          ]
-        }
-      }
-    }
-  },
-
-  "metadata": {
-    "createdBy": "WealthWise",
-    "updateFrequency": "Yearly",
-    "supportsOffline": true,
-    "minimumSupportedAppVersion": "1.0"
+  "rentalIncome": {
+    "standardDeductionRate": 30,
+    "homeLoanInterestLimit": 200000
   }
 }
