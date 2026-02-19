@@ -1,27 +1,227 @@
 {
-  "version": "FY2025-26",
+  "schemaVersion": "1.0",
   "country": "India",
+  "currency": "INR",
   "lastUpdated": "2025-03-01",
-  "newRegime": {
-    "standardDeduction": 75000,
-    "cess": 4,
-    "slabs": [
-      { "min": 0, "max": 300000, "rate": 0 },
-      { "min": 300000, "max": 700000, "rate": 5 },
-      { "min": 700000, "max": 1000000, "rate": 10 },
-      { "min": 1000000, "max": 1200000, "rate": 15 },
-      { "min": 1200000, "max": 1500000, "rate": 20 },
-      { "min": 1500000, "max": null, "rate": 30 }
-    ]
+  "activeFinancialYear": "FY2025-26",
+
+  "incomeTypes": [
+    "salaried",
+    "business",
+    "freelancer",
+    "rental",
+    "capitalGains",
+    "interest",
+    "other"
+  ],
+
+  "globalRules": {
+    "cessPercent": 4,
+    "professionalTaxMax": 2500,
+    "rebateMarginalRelief": true,
+    "surchargeMarginalRelief": true
   },
-  "oldRegime": {
-    "standardDeduction": 50000,
-    "cess": 4,
-    "slabs": [
-      { "min": 0, "max": 250000, "rate": 0 },
-      { "min": 250000, "max": 500000, "rate": 5 },
-      { "min": 500000, "max": 1000000, "rate": 20 },
-      { "min": 1000000, "max": null, "rate": 30 }
-    ]
+
+  "capitalGains": {
+    "equity": {
+      "stcgRate": 15,
+      "ltcgRate": 10,
+      "ltcgExemption": 100000
+    },
+    "debt": {
+      "stcgSlabApplicable": true,
+      "ltcgRate": 20,
+      "indexationAllowed": true
+    },
+    "property": {
+      "ltcgRate": 20,
+      "indexationAllowed": true
+    }
+  },
+
+  "hraRules": {
+    "metroPercent": 50,
+    "nonMetroPercent": 40,
+    "rentExcessPercent": 10
+  },
+
+  "pfRules": {
+    "employeeContributionPercent": 12,
+    "employerContributionPercent": 12,
+    "includedIn80C": true
+  },
+
+  "npsRules": {
+    "employee80CCD1Limit": 150000,
+    "additional80CCD1BLimit": 50000,
+    "employerPercentLimit": 10
+  },
+
+  "presumptiveTaxation": {
+    "44AD": {
+      "eligible": true,
+      "incomeLimit": 20000000,
+      "digitalProfitPercent": 6,
+      "cashProfitPercent": 8
+    },
+    "44ADA": {
+      "eligible": true,
+      "incomeLimit": 5000000,
+      "profitPercent": 50
+    }
+  },
+
+  "tdsRules": {
+    "salary": true,
+    "interest": true,
+    "contractor": true,
+    "freelancer": true,
+    "rent": true
+  },
+
+  "financialYears": {
+
+    "FY2024-25": {
+
+      "assessmentYear": "AY2025-26",
+      "isOfficial": true,
+      "isProvisional": false,
+
+      "regimes": {
+
+        "new": {
+
+          "standardDeduction": 50000,
+
+          "rebate87A": {
+            "maxIncome": 700000,
+            "maxRebate": 25000
+          },
+
+          "surcharge": [
+            { "min": 5000000, "max": 10000000, "rate": 10 },
+            { "min": 10000000, "max": 20000000, "rate": 15 },
+            { "min": 20000000, "max": 50000000, "rate": 25 },
+            { "min": 50000000, "max": null, "rate": 25 }
+          ],
+
+          "slabs": [
+            { "min": 0, "max": 300000, "rate": 0 },
+            { "min": 300000, "max": 600000, "rate": 5 },
+            { "min": 600000, "max": 900000, "rate": 10 },
+            { "min": 900000, "max": 1200000, "rate": 15 },
+            { "min": 1200000, "max": 1500000, "rate": 20 },
+            { "min": 1500000, "max": null, "rate": 30 }
+          ]
+        },
+
+        "old": {
+
+          "standardDeduction": 50000,
+
+          "rebate87A": {
+            "maxIncome": 500000,
+            "maxRebate": 12500
+          },
+
+          "surcharge": [
+            { "min": 5000000, "max": 10000000, "rate": 10 },
+            { "min": 10000000, "max": 20000000, "rate": 15 },
+            { "min": 20000000, "max": 50000000, "rate": 25 },
+            { "min": 50000000, "max": null, "rate": 37 }
+          ],
+
+          "slabs": [
+            { "min": 0, "max": 250000, "rate": 0 },
+            { "min": 250000, "max": 500000, "rate": 5 },
+            { "min": 500000, "max": 1000000, "rate": 20 },
+            { "min": 1000000, "max": null, "rate": 30 }
+          ],
+
+          "deductions": {
+
+            "80C": 150000,
+
+            "80CCD1B": 50000,
+
+            "80D": {
+              "selfBelow60": 25000,
+              "selfAbove60": 50000,
+              "parentsBelow60": 25000,
+              "parentsAbove60": 50000
+            },
+
+            "section24HomeLoanInterest": 200000,
+
+            "educationLoan80E": "unlimited",
+
+            "electricVehicle80EEB": 150000,
+
+            "firstHome80EE": 50000,
+
+            "firstHome80EEA": 150000
+          }
+        }
+      }
+    },
+
+    "FY2025-26": {
+
+      "assessmentYear": "AY2026-27",
+      "isOfficial": false,
+      "isProvisional": true,
+
+      "regimes": {
+
+        "new": {
+
+          "standardDeduction": 50000,
+
+          "rebate87A": {
+            "maxIncome": 700000,
+            "maxRebate": 25000
+          },
+
+          "surcharge": [
+            { "min": 5000000, "max": 10000000, "rate": 10 },
+            { "min": 10000000, "max": 20000000, "rate": 15 },
+            { "min": 20000000, "max": null, "rate": 25 }
+          ],
+
+          "slabs": [
+            { "min": 0, "max": 300000, "rate": 0 },
+            { "min": 300000, "max": 600000, "rate": 5 },
+            { "min": 600000, "max": 900000, "rate": 10 },
+            { "min": 900000, "max": 1200000, "rate": 15 },
+            { "min": 1200000, "max": 1500000, "rate": 20 },
+            { "min": 1500000, "max": null, "rate": 30 }
+          ]
+        },
+
+        "old": {
+
+          "standardDeduction": 50000,
+
+          "rebate87A": {
+            "maxIncome": 500000,
+            "maxRebate": 12500
+          },
+
+          "slabs": [
+            { "min": 0, "max": 250000, "rate": 0 },
+            { "min": 250000, "max": 500000, "rate": 5 },
+            { "min": 500000, "max": 1000000, "rate": 20 },
+            { "min": 1000000, "max": null, "rate": 30 }
+          ]
+        }
+      }
+    }
+  },
+
+  "metadata": {
+    "createdBy": "WealthWise",
+    "updateFrequency": "Yearly",
+    "supportsOffline": true,
+    "minimumSupportedAppVersion": "1.0"
   }
 }
