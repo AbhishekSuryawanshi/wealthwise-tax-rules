@@ -1,89 +1,573 @@
 {
-  "version": 2,
-  "financialYear": "FY 2025-2026",
-  "lastUpdated": "2025-07-01",
-  "oldRegime": {
-    "standardDeduction": 50000,
-    "slabs": [
-      { "upTo": 250000, "rate": 0 },
-      { "upTo": 500000, "rate": 5 },
-      { "upTo": 1000000, "rate": 20 },
-      { "upTo": -1, "rate": 30 }
+  "schemaVersion": "2.0",
+  "contentVersion": "2.0.0",
+  "country": "India",
+  "currency": "INR",
+  "publishedAt": "2026-02-19",
+  "lastUpdated": "2026-02-19",
+
+  "activeFinancialYear": "FY2025-26",
+
+  "sources": {
+    "notes": "This file is designed for offline-first apps. App should cache this JSON and apply rules locally.",
+    "primaryReferences": [
+      "Income Tax e-Filing portal pages for AY 2025-26 slabs and new-regime standard deduction availability",
+      "Budget/Finance Act updates for FY 2025-26 new regime slabs and enhanced 87A rebate",
+      "Capital gains rate change effective 2024-07-23 (equity STCG/LTCG)"
+    ]
+  },
+
+  "compatibility": {
+    "minimumSupportedAppVersion": "1.0",
+    "breakingChangePolicy": "Increase schemaVersion only when app parsing must change. Otherwise bump contentVersion.",
+    "unknownFieldPolicy": "Clients must ignore unknown fields to support forward compatibility."
+  },
+
+  "taxpayerProfiles": {
+    "residentialStatus": ["resident", "nonResident", "notOrdinarilyResident"],
+    "ageCategories": [
+      { "code": "lt60", "minAge": 0, "maxAge": 59 },
+      { "code": "senior", "minAge": 60, "maxAge": 79 },
+      { "code": "superSenior", "minAge": 80, "maxAge": null }
     ],
-    "rebate87A": {
-      "incomeLimit": 500000,
-      "maxRebate": 12500
+    "incomeTypes": [
+      "salaried",
+      "business",
+      "freelancer",
+      "rental",
+      "capitalGains",
+      "interest",
+      "dividend",
+      "cryptoVDA",
+      "lotteryGambling",
+      "other"
+    ]
+  },
+
+  "globalRules": {
+    "cess": { "type": "percent", "rate": 4, "name": "Health & Education Cess" },
+
+    "rounding": {
+      "taxRoundedTo": 10,
+      "totalIncomeRoundedTo": 10,
+      "rule": "Round off as per Income-tax rounding conventions (engine-level implementation)"
     },
-    "cessRate": 4,
-    "section80CGroupLimit": 150000,
-    "section80CMembers": ["80C", "80CCC", "80CCD(1)", "EPF", "VPF"]
-  },
-  "newRegime": {
-    "standardDeduction": 75000,
-    "slabs": [
-      { "upTo": 400000, "rate": 0 },
-      { "upTo": 800000, "rate": 5 },
-      { "upTo": 1200000, "rate": 10 },
-      { "upTo": 1600000, "rate": 15 },
-      { "upTo": 2000000, "rate": 20 },
-      { "upTo": 2400000, "rate": 25 },
-      { "upTo": -1, "rate": 30 }
-    ],
-    "rebate87A": {
-      "incomeLimit": 1200000,
-      "maxRebate": 60000
+
+    "marginalRelief": {
+      "surchargeMarginalRelief": true,
+      "rebateMarginalRelief": true
     },
-    "cessRate": 4,
-    "allowedDeductions": ["80CCD(2)"]
+
+    "professionalTax": {
+      "maxPerYear": 2500
+    },
+
+    "defaultRegime": {
+      "rule": "New regime is default; user can choose old regime where allowed."
+    }
   },
-  "deductionSections": [
-    { "code": "80C", "name": "EPF, PPF, ELSS, LIC, NSC, Tuition, 5yr FD, Sukanya", "limit": 150000 },
-    { "code": "80CCC", "name": "Pension Fund Contribution (LIC/Insurer)", "limit": 150000 },
-    { "code": "80CCD(1)", "name": "Employee NPS Contribution (within 80C)", "limit": 150000 },
-    { "code": "80CCD(1B)", "name": "NPS Additional Contribution (extra ₹50K)", "limit": 50000 },
-    { "code": "80CCD(2)", "name": "Employer NPS Contribution (up to 14% salary)", "limit": -1 },
-    { "code": "80D", "name": "Health Insurance Premium (Self & Family)", "limit": 25000 },
-    { "code": "80D (Parents)", "name": "Health Insurance (Parents / Senior)", "limit": 50000 },
-    { "code": "80DD", "name": "Disabled Dependent (40-80%: ₹75K, 80%+: ₹1.25L)", "limit": 125000 },
-    { "code": "80DDB", "name": "Specified Disease Treatment", "limit": 100000 },
-    { "code": "80E", "name": "Education Loan Interest (full amount)", "limit": -1 },
-    { "code": "80EE", "name": "Home Loan Interest (1st home, ≤₹35L value)", "limit": 50000 },
-    { "code": "80EEA", "name": "Home Loan Interest (Affordable Housing ≤₹45L)", "limit": 150000 },
-    { "code": "80EEB", "name": "Electric Vehicle Loan Interest", "limit": 150000 },
-    { "code": "24(b)", "name": "Home Loan Interest Deduction", "limit": 200000 },
-    { "code": "80G", "name": "Donations to Charitable Institutions", "limit": -1 },
-    { "code": "80GG", "name": "Rent Paid (when no HRA received)", "limit": 60000 },
-    { "code": "80GGA", "name": "Donations for Scientific Research", "limit": -1 },
-    { "code": "80GGC", "name": "Donations to Political Parties", "limit": -1 },
-    { "code": "80TTA", "name": "Savings Account Interest (non-senior)", "limit": 10000 },
-    { "code": "80TTB", "name": "Interest Income (Senior Citizens only)", "limit": 50000 },
-    { "code": "HRA", "name": "House Rent Allowance Exemption", "limit": -1 },
-    { "code": "LTA", "name": "Leave Travel Allowance", "limit": -1 },
-    { "code": "Prof. Tax", "name": "Professional Tax (State)", "limit": 2500 },
-    { "code": "Std. Ded.", "name": "Standard Deduction (Salaried)", "limit": 50000 },
-    { "code": "Gratuity", "name": "Gratuity Exemption u/s 10(10)", "limit": 2000000 },
-    { "code": "Leave Enc.", "name": "Leave Encashment on Retirement u/s 10(10AA)", "limit": 2500000 },
-    { "code": "EPF", "name": "Employee Provident Fund (under 80C limit)", "limit": 150000 },
-    { "code": "VPF", "name": "Voluntary Provident Fund (under 80C limit)", "limit": 150000 },
-    { "code": "TDS", "name": "Tax Deducted at Source (credit against tax)", "limit": -1 },
-    { "code": "80U", "name": "Person with Disability (Self)", "limit": 125000 },
-    { "code": "80RRB", "name": "Royalty on Patents", "limit": 300000 },
-    { "code": "80QQB", "name": "Royalty Income of Authors", "limit": 300000 }
-  ],
-  "nonDeductionSections": ["TDS", "Gratuity", "Leave Enc."],
-  "presumptiveTax": {
-    "section44ADRate": 6,
-    "section44ADARate": 50,
-    "section44ADLimit": 20000000,
-    "section44ADALimit": 5000000
+
+  "hraRules": {
+    "calculation": "min( HRA_received, rent_paid - 10%_of_salary_basicDA, (metro?50%:40%)_of_salary_basicDA )",
+    "metroPercent": 50,
+    "nonMetroPercent": 40,
+    "rentExcessPercent": 10,
+    "salaryComponentsForHRA": ["basic", "da_in_terms_of_retirement_benefits"]
   },
+
+  "pfRules": {
+    "employeeContributionPercent": 12,
+    "employerContributionPercent": 12,
+    "includedIn80C": true,
+    "notes": "Employee PF generally counts within 80C limit under old regime (and where allowed)."
+  },
+
+  "npsRules": {
+    "employee80CCD1Limit": 150000,
+    "additional80CCD1BLimit": 50000,
+    "employerPercentLimitDefault": 10,
+    "employerPercentLimitGovt": 14,
+    "notes": "Employer NPS (80CCD(2)) has percent caps that may differ for Govt vs others. Model keeps both."
+  },
+
+  "presumptiveTaxation": {
+    "44AD": {
+      "eligible": true,
+      "incomeLimit": 20000000,
+      "digitalProfitPercent": 6,
+      "cashProfitPercent": 8
+    },
+    "44ADA": {
+      "eligible": true,
+      "incomeLimit": 5000000,
+      "profitPercent": 50
+    },
+    "44AE": {
+      "eligible": true,
+      "notes": "Transporter presumptive rules vary; keep engine-driven or add detailed schedule later."
+    }
+  },
+
+  "tdsRules": {
+    "salary": true,
+    "interest": true,
+    "contractor": true,
+    "freelancer": true,
+    "rent": true,
+    "cryptoVDA_194S": {
+      "enabled": true,
+      "tdsPercent": 1,
+      "notes": "VDA TDS modeled for awareness/credit tracking; actual thresholds may evolve."
+    }
+  },
+
+  "specialRateIncomeFramework": {
+    "rebate87AApplicability": {
+      "rule": "Rebate may not apply to special-rate income depending on FY/regime. See financialYears.*.rebate87A.rules."
+    },
+    "surchargeCapForCertainSpecialIncomes": {
+      "enabled": true,
+      "capPercent": 15,
+      "appliesToSections": ["111A", "112", "112A", "dividend"],
+      "notes": "Model supports special surcharge cap (engine should apply where legally applicable)."
+    }
+  },
+
   "capitalGains": {
-    "stcgRate": 15,
-    "ltcgRate": 10,
-    "ltcgExemption": 100000
+    "equity": {
+      "sections": {
+        "stcg": "111A",
+        "ltcg": "112A"
+      },
+      "rateSchedule": [
+        {
+          "effectiveFrom": "2018-04-01",
+          "effectiveTo": "2024-07-22",
+          "stcgRatePercent": 15,
+          "ltcgRatePercent": 10,
+          "ltcgExemptionAmount": 100000
+        },
+        {
+          "effectiveFrom": "2024-07-23",
+          "effectiveTo": null,
+          "stcgRatePercent": 20,
+          "ltcgRatePercent": 12.5,
+          "ltcgExemptionAmount": 125000
+        }
+      ],
+      "notes": "Equity STCG/LTCG rates changed effective 2024-07-23."
+    },
+
+    "debt": {
+      "stcgSlabApplicable": true,
+      "ltcgRatePercent": 20,
+      "indexationAllowed": true,
+      "notes": "Debt taxation can vary by instrument and acquisition date; keep engine rules extendable."
+    },
+
+    "property": {
+      "ltcgRatePercent": 20,
+      "indexationAllowed": true
+    }
   },
-  "rentalIncome": {
-    "standardDeductionRate": 30,
-    "homeLoanInterestLimit": 200000
+
+  "incomeHeads": {
+    "salary": {
+      "standardDeduction": {
+        "code": "StandardDeduction",
+        "notes": "Amount differs by FY/regime; refer financialYears.*.regimes.*.salary.standardDeduction"
+      },
+      "exemptionsCommon": ["HRA", "LTA", "Gratuity", "LeaveEncashment"]
+    },
+
+    "houseProperty": {
+      "standardDeductionPercent": 30,
+      "interestDeductionSection": "24(b)",
+      "selfOccupiedInterestCap": 200000,
+      "lossSetoffCapAgainstOtherHeads": 200000,
+      "notes": "House property loss set-off limits are modeled; detailed carry-forward rules can be added."
+    },
+
+    "otherSources": {
+      "familyPensionDeduction": {
+        "enabled": true,
+        "method": "min(1/3_of_family_pension, 15000)",
+        "notes": "Can vary by regime/FY; can be overridden in FY blocks."
+      }
+    }
+  },
+
+  "deductionSectionsCatalog": {
+    "notes": "Master catalog used for UI + parsing. FY/regime blocks decide what is allowed and the exact limits.",
+    "items": [
+      { "code": "80C", "name": "EPF, PPF, ELSS, LIC, NSC, Tuition, 5yr FD, Sukanya", "defaultLimit": 150000, "limitType": "amount", "aliases": ["EPF", "VPF", "PPF", "ELSS", "LIC", "NSC"] },
+      { "code": "80CCC", "name": "Pension Fund Contribution (LIC/Insurer)", "defaultLimit": 150000, "limitType": "amount" },
+      { "code": "80CCD(1)", "name": "Employee NPS Contribution (within 80C)", "defaultLimit": 150000, "limitType": "amount" },
+      { "code": "80CCD(1B)", "name": "NPS Additional Contribution (extra ₹50K)", "defaultLimit": 50000, "limitType": "amount" },
+      { "code": "80CCD(2)", "name": "Employer NPS Contribution (percent of salary)", "defaultLimit": -1, "limitType": "percent_or_unlimited" },
+
+      { "code": "80D", "name": "Health Insurance Premium (Self & Family)", "defaultLimit": 25000, "limitType": "amount" },
+      { "code": "80D_PARENTS", "name": "Health Insurance (Parents)", "defaultLimit": 50000, "limitType": "amount" },
+
+      { "code": "80DD", "name": "Disabled Dependent", "defaultLimit": 125000, "limitType": "tiered_fixed", "tiers": [
+        { "condition": "disability_40_to_79", "amount": 75000 },
+        { "condition": "disability_80_or_more", "amount": 125000 }
+      ] },
+
+      { "code": "80DDB", "name": "Specified Disease Treatment", "defaultLimit": 100000, "limitType": "amount" },
+
+      { "code": "80E", "name": "Education Loan Interest (full amount)", "defaultLimit": -1, "limitType": "unlimited" },
+
+      { "code": "80EE", "name": "Home Loan Interest (1st home, ≤₹35L value)", "defaultLimit": 50000, "limitType": "amount" },
+      { "code": "80EEA", "name": "Home Loan Interest (Affordable Housing ≤₹45L)", "defaultLimit": 150000, "limitType": "amount" },
+      { "code": "80EEB", "name": "Electric Vehicle Loan Interest", "defaultLimit": 150000, "limitType": "amount" },
+
+      { "code": "24(b)", "name": "Home Loan Interest Deduction", "defaultLimit": 200000, "limitType": "amount" },
+
+      { "code": "80G", "name": "Donations to Charitable Institutions", "defaultLimit": -1, "limitType": "category_dependent" },
+      { "code": "80GGA", "name": "Donations for Scientific Research", "defaultLimit": -1, "limitType": "unlimited" },
+      { "code": "80GGC", "name": "Donations to Political Parties", "defaultLimit": -1, "limitType": "unlimited" },
+
+      { "code": "80GG", "name": "Rent Paid (when no HRA received)", "defaultLimit": 60000, "limitType": "formula_based",
+        "formula": "min( (rent_paid - 10%_of_total_income), 25%_of_total_income, 5000_per_month )" },
+
+      { "code": "80TTA", "name": "Savings Account Interest (non-senior)", "defaultLimit": 10000, "limitType": "amount" },
+      { "code": "80TTB", "name": "Interest Income (Senior Citizens only)", "defaultLimit": 50000, "limitType": "amount" },
+
+      { "code": "HRA", "name": "House Rent Allowance Exemption", "defaultLimit": -1, "limitType": "formula_based" },
+      { "code": "LTA", "name": "Leave Travel Allowance", "defaultLimit": -1, "limitType": "rule_based" },
+
+      { "code": "ProfessionalTax", "name": "Professional Tax (State)", "defaultLimit": 2500, "limitType": "amount" },
+
+      { "code": "StandardDeduction", "name": "Standard Deduction (Salaried)", "defaultLimit": 50000, "limitType": "amount" },
+
+      { "code": "Gratuity", "name": "Gratuity Exemption u/s 10(10)", "defaultLimit": 2000000, "limitType": "amount" },
+      { "code": "LeaveEncashment", "name": "Leave Encashment on Retirement u/s 10(10AA)", "defaultLimit": 2500000, "limitType": "amount" },
+
+      { "code": "EPF", "name": "Employee Provident Fund (under 80C limit)", "defaultLimit": 150000, "limitType": "within_80C" },
+      { "code": "VPF", "name": "Voluntary Provident Fund (under 80C limit)", "defaultLimit": 150000, "limitType": "within_80C" },
+
+      { "code": "TDS", "name": "Tax Deducted at Source (credit against tax)", "defaultLimit": -1, "limitType": "credit" },
+
+      { "code": "80U", "name": "Person with Disability (Self)", "defaultLimit": 125000, "limitType": "tiered_fixed", "tiers": [
+        { "condition": "disability_40_to_79", "amount": 75000 },
+        { "condition": "disability_80_or_more", "amount": 125000 }
+      ]},
+
+      { "code": "80RRB", "name": "Royalty on Patents", "defaultLimit": 300000, "limitType": "amount" },
+      { "code": "80QQB", "name": "Royalty Income of Authors", "defaultLimit": 300000, "limitType": "amount" }
+    ]
+  },
+
+  "financialYears": {
+    "FY2024-25": {
+      "assessmentYear": "AY2025-26",
+      "isOfficial": true,
+      "isProvisional": false,
+      "effectiveFrom": "2024-04-01",
+      "effectiveTo": "2025-03-31",
+
+      "regimes": {
+        "new": {
+          "name": "New regime (default)",
+          "salary": {
+            "standardDeduction": 50000
+          },
+          "rebate87A": {
+            "maxIncome": 700000,
+            "maxRebate": 25000,
+            "rules": {
+              "appliesTo": "tax_on_normal_income_only",
+              "specialRateIncomeTreatment": "engine_should_apply_per_law_and_itr_utilities"
+            }
+          },
+          "surcharge": [
+            { "min": 5000000, "max": 10000000, "rate": 10 },
+            { "min": 10000000, "max": 20000000, "rate": 15 },
+            { "min": 20000000, "max": 50000000, "rate": 25 },
+            { "min": 50000000, "max": null, "rate": 25 }
+          ],
+          "slabs": [
+            { "min": 0, "max": 300000, "rate": 0 },
+            { "min": 300000, "max": 600000, "rate": 5 },
+            { "min": 600000, "max": 900000, "rate": 10 },
+            { "min": 900000, "max": 1200000, "rate": 15 },
+            { "min": 1200000, "max": 1500000, "rate": 20 },
+            { "min": 1500000, "max": null, "rate": 30 }
+          ],
+
+          "allowedDeductions": [
+            "StandardDeduction",
+            "ProfessionalTax",
+            "80CCD(2)"
+          ],
+          "disallowedCommonDeductions": [
+            "80C",
+            "80D",
+            "HRA",
+            "LTA",
+            "80E",
+            "24(b)"
+          ]
+        },
+
+        "old": {
+          "name": "Old regime",
+          "salary": {
+            "standardDeduction": 50000
+          },
+          "rebate87A": {
+            "maxIncome": 500000,
+            "maxRebate": 12500
+          },
+          "surcharge": [
+            { "min": 5000000, "max": 10000000, "rate": 10 },
+            { "min": 10000000, "max": 20000000, "rate": 15 },
+            { "min": 20000000, "max": 50000000, "rate": 25 },
+            { "min": 50000000, "max": null, "rate": 37 }
+          ],
+          "slabsByAgeCategory": {
+            "lt60": [
+              { "min": 0, "max": 250000, "rate": 0 },
+              { "min": 250000, "max": 500000, "rate": 5 },
+              { "min": 500000, "max": 1000000, "rate": 20 },
+              { "min": 1000000, "max": null, "rate": 30 }
+            ],
+            "senior": [
+              { "min": 0, "max": 300000, "rate": 0 },
+              { "min": 300000, "max": 500000, "rate": 5 },
+              { "min": 500000, "max": 1000000, "rate": 20 },
+              { "min": 1000000, "max": null, "rate": 30 }
+            ],
+            "superSenior": [
+              { "min": 0, "max": 500000, "rate": 0 },
+              { "min": 500000, "max": 1000000, "rate": 20 },
+              { "min": 1000000, "max": null, "rate": 30 }
+            ]
+          },
+
+          "deductions": {
+            "80C": 150000,
+            "80CCD(1B)": 50000,
+            "80D": {
+              "selfBelow60": 25000,
+              "selfAbove60": 50000,
+              "parentsBelow60": 25000,
+              "parentsAbove60": 50000
+            },
+            "24(b)": 200000,
+            "80E": "unlimited",
+            "80EEB": 150000,
+            "80EE": 50000,
+            "80EEA": 150000
+          },
+
+          "allowedDeductions": [
+            "80C",
+            "80CCC",
+            "80CCD(1)",
+            "80CCD(1B)",
+            "80CCD(2)",
+            "80D",
+            "80D_PARENTS",
+            "80DD",
+            "80DDB",
+            "80E",
+            "80EE",
+            "80EEA",
+            "80EEB",
+            "24(b)",
+            "80G",
+            "80GGA",
+            "80GGC",
+            "80GG",
+            "80TTA",
+            "80TTB",
+            "HRA",
+            "LTA",
+            "ProfessionalTax",
+            "StandardDeduction",
+            "Gratuity",
+            "LeaveEncashment",
+            "80U",
+            "80RRB",
+            "80QQB"
+          ]
+        }
+      }
+    },
+
+    "FY2025-26": {
+      "assessmentYear": "AY2026-27",
+      "isOfficial": false,
+      "isProvisional": true,
+      "effectiveFrom": "2025-04-01",
+      "effectiveTo": "2026-03-31",
+
+      "regimes": {
+        "new": {
+          "name": "New regime (default) - updated slabs & rebate",
+          "salary": {
+            "standardDeduction": 75000
+          },
+          "rebate87A": {
+            "maxIncome": 1200000,
+            "maxRebate": 60000,
+            "rules": {
+              "appliesTo": "tax_on_normal_income_only",
+              "doesNotApplyToSpecialRateIncome": true,
+              "specialRateSectionsExcluded": ["111A", "112", "112A", "115BBH", "115BB"],
+              "notes": "Engine should compute normal slab tax and apply rebate only on that portion."
+            }
+          },
+          "surcharge": [
+            { "min": 5000000, "max": 10000000, "rate": 10 },
+            { "min": 10000000, "max": 20000000, "rate": 15 },
+            { "min": 20000000, "max": null, "rate": 25 }
+          ],
+          "slabs": [
+            { "min": 0, "max": 400000, "rate": 0 },
+            { "min": 400000, "max": 800000, "rate": 5 },
+            { "min": 800000, "max": 1200000, "rate": 10 },
+            { "min": 1200000, "max": 1600000, "rate": 15 },
+            { "min": 1600000, "max": 2000000, "rate": 20 },
+            { "min": 2000000, "max": 2400000, "rate": 25 },
+            { "min": 2400000, "max": null, "rate": 30 }
+          ],
+
+          "allowedDeductions": [
+            "StandardDeduction",
+            "ProfessionalTax",
+            "80CCD(2)"
+          ],
+          "disallowedCommonDeductions": [
+            "80C",
+            "80D",
+            "HRA",
+            "LTA",
+            "80E",
+            "24(b)"
+          ]
+        },
+
+        "old": {
+          "name": "Old regime (assumed unchanged unless updated)",
+          "salary": {
+            "standardDeduction": 50000
+          },
+          "rebate87A": {
+            "maxIncome": 500000,
+            "maxRebate": 12500
+          },
+          "surcharge": [
+            { "min": 5000000, "max": 10000000, "rate": 10 },
+            { "min": 10000000, "max": 20000000, "rate": 15 },
+            { "min": 20000000, "max": 50000000, "rate": 25 },
+            { "min": 50000000, "max": null, "rate": 37 }
+          ],
+          "slabsByAgeCategory": {
+            "lt60": [
+              { "min": 0, "max": 250000, "rate": 0 },
+              { "min": 250000, "max": 500000, "rate": 5 },
+              { "min": 500000, "max": 1000000, "rate": 20 },
+              { "min": 1000000, "max": null, "rate": 30 }
+            ],
+            "senior": [
+              { "min": 0, "max": 300000, "rate": 0 },
+              { "min": 300000, "max": 500000, "rate": 5 },
+              { "min": 500000, "max": 1000000, "rate": 20 },
+              { "min": 1000000, "max": null, "rate": 30 }
+            ],
+            "superSenior": [
+              { "min": 0, "max": 500000, "rate": 0 },
+              { "min": 500000, "max": 1000000, "rate": 20 },
+              { "min": 1000000, "max": null, "rate": 30 }
+            ]
+          },
+
+          "allowedDeductions": [
+            "80C",
+            "80CCC",
+            "80CCD(1)",
+            "80CCD(1B)",
+            "80CCD(2)",
+            "80D",
+            "80D_PARENTS",
+            "80DD",
+            "80DDB",
+            "80E",
+            "80EE",
+            "80EEA",
+            "80EEB",
+            "24(b)",
+            "80G",
+            "80GGA",
+            "80GGC",
+            "80GG",
+            "80TTA",
+            "80TTB",
+            "HRA",
+            "LTA",
+            "ProfessionalTax",
+            "StandardDeduction",
+            "Gratuity",
+            "LeaveEncashment",
+            "80U",
+            "80RRB",
+            "80QQB"
+          ]
+        }
+      }
+    }
+  },
+
+  "specialIncomes": {
+    "lotteryGambling": {
+      "section": "115BB",
+      "flatRatePercent": 30,
+      "allowBasicExemptionSetoff": false,
+      "allowDeductions": false
+    },
+
+    "cryptoVDA": {
+      "section": "115BBH",
+      "flatRatePercent": 30,
+      "allowBasicExemptionSetoff": false,
+      "allowDeductions": "only_cost_of_acquisition",
+      "lossSetoffAllowed": false,
+      "lossCarryForwardAllowed": false
+    }
+  },
+
+  "engineContract": {
+    "calculationOrder": [
+      "collect_inputs",
+      "compute_gross_total_income_by_heads",
+      "apply_head_specific_deductions",
+      "compute_gross_total_income",
+      "apply_chapter_VIA_deductions_if_allowed_by_regime",
+      "compute_total_income",
+      "compute_tax_normal_slabs",
+      "compute_tax_special_rates",
+      "apply_rebate_87A_if_applicable",
+      "apply_surcharge_with_marginal_relief",
+      "apply_cess",
+      "subtract_tds_tcs_advance_tax_credits",
+      "compute_net_payable_or_refund"
+    ],
+    "offlineFirst": true,
+    "updatePolicy": {
+      "recommended": "auto_check_once_per_day_when_online",
+      "fallback": "manual_button",
+      "cacheStrategy": "keep_last_good_ruleset",
+      "rollbackStrategy": "if parsing fails, keep previous cached rules"
+    }
+  },
+
+  "metadata": {
+    "createdBy": "WealthWise",
+    "supportsOffline": true,
+    "updateFrequency": "Yearly (plus emergency patches)",
+    "notes": "FY2025-26 block is provisional until Income Tax portal publishes official AY2026-27 slabs on the portal. App should display a 'Provisional' badge when isOfficial=false."
   }
 }
