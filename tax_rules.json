@@ -1,0 +1,27 @@
+{
+  "version": "FY2025-26",
+  "country": "India",
+  "lastUpdated": "2025-03-01",
+  "newRegime": {
+    "standardDeduction": 75000,
+    "cess": 4,
+    "slabs": [
+      { "min": 0, "max": 300000, "rate": 0 },
+      { "min": 300000, "max": 700000, "rate": 5 },
+      { "min": 700000, "max": 1000000, "rate": 10 },
+      { "min": 1000000, "max": 1200000, "rate": 15 },
+      { "min": 1200000, "max": 1500000, "rate": 20 },
+      { "min": 1500000, "max": null, "rate": 30 }
+    ]
+  },
+  "oldRegime": {
+    "standardDeduction": 50000,
+    "cess": 4,
+    "slabs": [
+      { "min": 0, "max": 250000, "rate": 0 },
+      { "min": 250000, "max": 500000, "rate": 5 },
+      { "min": 500000, "max": 1000000, "rate": 20 },
+      { "min": 1000000, "max": null, "rate": 30 }
+    ]
+  }
+}
